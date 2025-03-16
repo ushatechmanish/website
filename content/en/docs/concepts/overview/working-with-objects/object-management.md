@@ -68,12 +68,11 @@ See the [API reference](/docs/reference/generated/kubernetes-api/{{< param "vers
 for more details on object definitions.
 
 {{< warning >}}
-The imperative `replace` command replaces the existing
-spec with the newly provided one, dropping all changes to the object missing from
-the configuration file.  This approach should not be used with resource
-types whose specs are updated independently of the configuration file.
+The imperative `replace` command completely overwrites the existing resource instead of merging changes. 
+This means any fields missing in the YAML file will be removed from the resource. 
+This approach should not be used with resource types whose specs are updated independently of the configuration file.
 Services of type `LoadBalancer`, for example, have their `externalIPs` field updated
-independently from the configuration by the cluster.
+independently of the configuration by the cluster.
 {{< /warning >}}
 
 ### Examples
