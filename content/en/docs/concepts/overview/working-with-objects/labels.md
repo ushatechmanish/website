@@ -65,6 +65,8 @@ character (`[a-z0-9A-Z]`) with dashes (`-`), underscores (`_`), dots (`.`),
 and alphanumerics between. The prefix is optional. If specified, the prefix
 must be a DNS subdomain: a series of DNS labels separated by dots (`.`),
 not longer than 253 characters in total, followed by a slash (`/`).
+With a prefix the label is used by automated system components or shared across teams.
+Different teams in an organization can define their own labels with a domain-style prefix.
 
 If the prefix is omitted, the label Key is presumed to be private to the user.
 Automated system components (e.g. `kube-scheduler`, `kube-controller-manager`,
@@ -91,6 +93,7 @@ metadata:
   labels:
     environment: production
     app: nginx
+    team.example.com/owner: devops # Prefix used (DNS-style domain)
 spec:
   containers:
   - name: nginx
