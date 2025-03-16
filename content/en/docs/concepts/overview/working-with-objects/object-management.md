@@ -77,7 +77,7 @@ independently of the configuration by the cluster.
 
 ### Examples
 
-Create the objects defined in a configuration file:
+Create the objects defined in a configuration file:This creates resources only if they do not already exist. If the resource already exists, it will fail.
 
 ```sh
 kubectl create -f nginx.yaml
@@ -89,8 +89,7 @@ Delete the objects defined in two configuration files:
 kubectl delete -f nginx.yaml -f redis.yaml
 ```
 
-Update the objects defined in a configuration file by overwriting
-the live configuration:
+This deletes and recreates the resource, replacing the existing configuration entirely.
 
 ```sh
 kubectl replace -f nginx.yaml
@@ -117,7 +116,12 @@ Advantages compared to declarative object configuration:
 Disadvantages compared to declarative object configuration:
 
 - Imperative object configuration works best on files, not directories.
-- Updates to live objects must be reflected in configuration files, or they will be lost during the next replacement.
+  - For example `kubectl create` only works when explicitly given file names. 
+  - if you store separate yaml files in a folder , you must apply them one by one making management harder.
+- Updates to live objects must be reflected in configuration files, or they will be lost during the next `kubectl replace` command execution.
+  - For example If you update a resource manually using `kubectl edit` or `kubectl patch`, those changes are not saved in the YAML configuration file and are lost when you run `kubectl replace` command 
+  - For declarative configurations `kubectl apply -f nginx.yaml` If nginx.yaml only changes image, but replicas was manually increased in the live cluster, the replicas count is preserved and will not be changes.
+
 
 ## Declarative object configuration
 
