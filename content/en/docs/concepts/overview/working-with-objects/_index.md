@@ -95,7 +95,7 @@ The output is similar to this:
 ```
 deployment.apps/nginx-deployment created
 ```
-
+Note: For new users , you need to install minikube and kubectl on machine and run `minikube start` to start a minikube cluster on the machine before using the `kubectl apply` command
 ### Required fields
 
 In the manifest (YAML or JSON file) for the Kubernetes object you want to create, you'll need to set values for
